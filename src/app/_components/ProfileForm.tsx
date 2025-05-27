@@ -19,7 +19,6 @@ import { useState } from "react";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
 
-// Modified schema to properly handle the image field
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Please enter name",
@@ -30,7 +29,6 @@ const formSchema = z.object({
   about: z.string().min(2, {
     message: "Please enter info about yourself",
   }),
-  // Modified image validation
   image: z.any(),
 });
 
@@ -38,7 +36,7 @@ const ProfileForm = ({ Next }: { Next: () => void }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const { userId } = useUser(); // Get the userId from context
+  const { userId } = useUser();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,7 +52,6 @@ const ProfileForm = ({ Next }: { Next: () => void }) => {
     if (file) {
       setImageFile(file);
       setImagePreview(URL.createObjectURL(file));
-      // Update the form value as well
       form.setValue("image", file);
     }
   };
@@ -80,6 +77,7 @@ const ProfileForm = ({ Next }: { Next: () => void }) => {
       throw new Error("Failed to upload image to Cloudinary");
     }
   };
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (!userId) {
       form.setError("root", {
@@ -109,7 +107,7 @@ const ProfileForm = ({ Next }: { Next: () => void }) => {
         socialMediaURL: values.media,
       };
 
-      const response = await axios.post("/api/profile", submissionData, {});
+      await axios.post("/api/profile", submissionData);
       Next();
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -124,11 +122,17 @@ const ProfileForm = ({ Next }: { Next: () => void }) => {
       setIsUploading(false);
     }
   }
+
   return (
-    <div className="max-w-[510px] w-full m-auto flex flex-col gap-6">
-      <h3 className="font-bold text-2xl">Complete your profile page</h3>
+    <div className="w-full px-4 sm:px-6 md:px-0 max-w-[510px] mx-auto flex flex-col gap-6">
+      <h3 className="font-bold text-2xl text-center sm:text-left">
+        Complete your profile page
+      </h3>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6 sm:space-y-8"
+        >
           <FormField
             control={form.control}
             name="image"
@@ -136,18 +140,18 @@ const ProfileForm = ({ Next }: { Next: () => void }) => {
               field: { value, onChange, ...fieldProps },
               fieldState,
             }) => (
-              <FormItem>
+              <FormItem className="flex flex-col items-center">
                 <FormLabel>
                   <div
-                    className={`flex justify-center rounded-full h-[160px] w-[160px] border items-center ${
+                    className={`flex justify-center items-center rounded-full h-[140px] w-[140px] sm:h-[160px] sm:w-[160px] border ${
                       fieldState.error ? "border-red-500" : "border-gray-500"
-                    } border-dashed`}
+                    } border-dashed overflow-hidden`}
                   >
                     {imagePreview ? (
                       <img
                         src={imagePreview}
                         alt="Preview"
-                        className="h-full w-full rounded-full object-cover"
+                        className="h-full w-full object-cover"
                       />
                     ) : (
                       <Camera color="gray" />
@@ -163,9 +167,11 @@ const ProfileForm = ({ Next }: { Next: () => void }) => {
                     {...fieldProps}
                   />
                 </FormControl>
-                <FormDescription>Upload your profile picture</FormDescription>
+                <FormDescription className="text-center sm:text-left">
+                  Upload your profile picture
+                </FormDescription>
                 {fieldState.error && (
-                  <FormMessage>{fieldState.error.message}</FormMessage>
+                  <FormMessage className="text-center sm:text-left" />
                 )}
               </FormItem>
             )}
@@ -197,6 +203,7 @@ const ProfileForm = ({ Next }: { Next: () => void }) => {
                   <Textarea
                     placeholder="Write about yourself here"
                     {...field}
+                    className="min-h-[100px]"
                   />
                 </FormControl>
                 <FormMessage />
@@ -218,7 +225,7 @@ const ProfileForm = ({ Next }: { Next: () => void }) => {
           />
           <div className="flex justify-end">
             <Button
-              className="max-w-[250px] w-full"
+              className="w-full sm:max-w-[250px]"
               type="submit"
               disabled={isUploading}
             >

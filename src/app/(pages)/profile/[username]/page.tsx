@@ -272,25 +272,25 @@ export default function ViewPage() {
                               >
                                 <ToggleGroupItem
                                   value="1"
-                                  className="rounded-md border data-[state=on]:border-black"
+                                  className="rounded-md cursor-pointer border data-[state=on]:border-black"
                                 >
                                   <span className="mr-1">☕</span> $1
                                 </ToggleGroupItem>
                                 <ToggleGroupItem
                                   value="2"
-                                  className="rounded-md border data-[state=on]:border-black"
+                                  className="rounded-md cursor-pointer border data-[state=on]:border-black"
                                 >
                                   <span className="mr-1">☕</span> $2
                                 </ToggleGroupItem>
                                 <ToggleGroupItem
                                   value="5"
-                                  className="rounded-md border data-[state=on]:border-black"
+                                  className="rounded-md cursor-pointer border data-[state=on]:border-black"
                                 >
                                   <span className="mr-1">☕</span> $5
                                 </ToggleGroupItem>
                                 <ToggleGroupItem
                                   value="10"
-                                  className="rounded-md border data-[state=on]:border-black"
+                                  className="rounded-md cursor-pointer border data-[state=on]:border-black"
                                 >
                                   <span className="mr-1">☕</span> $10
                                 </ToggleGroupItem>
@@ -341,7 +341,7 @@ export default function ViewPage() {
 
                       <Button
                         type="submit"
-                        className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700"
+                        className="w-full cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-700"
                         disabled={loading}
                       >
                         {loading ? "Processing..." : "Support"}

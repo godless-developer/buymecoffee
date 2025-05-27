@@ -121,7 +121,11 @@ export function EditProfileDialog({ trigger }: { trigger?: React.ReactNode }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {trigger || (
-          <Button variant="outline" onClick={() => setOpen(true)}>
+          <Button
+            variant="outline"
+            className="cursor-pointer"
+            onClick={() => setOpen(true)}
+          >
             Edit Profile
           </Button>
         )}
@@ -274,10 +278,18 @@ export function EditProfileDialog({ trigger }: { trigger?: React.ReactNode }) {
           </div>
 
           <DialogFooter>
-            <Button variant="outline" onClick={() => setOpen(false)}>
+            <Button
+              variant="outline"
+              className="cursor-pointer"
+              onClick={() => setOpen(false)}
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={isUploading}>
+            <Button
+              type="submit"
+              className="cursor-pointer"
+              disabled={isUploading}
+            >
               Save changes
             </Button>
           </DialogFooter>

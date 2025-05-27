@@ -65,97 +65,101 @@ const SignUp = () => {
   }
 
   return (
-    <div className="flex justify-center items-center w-[50vw] relative">
-      <Link href={"/sign-in"}>
-        <Button
-          variant={"outline"}
-          className="absolute top-[32px] right-[80px]"
-        >
-          Log in
-        </Button>
-      </Link>
+    <div className="md:min-h-screen flex items-center justify-center px-4">
+      <div className="relative w-full max-w-sm bg-white p-6 rounded-lg shadow-md">
+        <Link href="/sign-in">
+          <Button
+            variant="outline"
+            className="absolute -top-100 right-0 md:-top-80 md:right-0 text-sm"
+          >
+            Log in
+          </Button>
+        </Link>
 
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 absolute top-[32px]">
-          {error}
-        </div>
-      )}
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-sm">
+            {error}
+          </div>
+        )}
 
-      {step === 1 ? (
-        <div className="p-6 w-[400px]">
-          <div className="flex flex-col gap-[6px] mb-6">
-            <h3 className="text-2xl font-bold">Create Your Account</h3>
-            <p className="text-muted-foreground text-[14px] font-medium">
-              Choose a username for your page
-            </p>
-          </div>
-          <Form {...usernameForm}>
-            <form
-              onSubmit={usernameForm.handleSubmit(handleUsernameSubmit)}
-              className="space-y-6"
-            >
-              <InputForm
-                name="username"
-                label="Username"
-                form={usernameForm}
-                type="text"
-                placeholder="Enter username here"
-                onChange={() => error && clearError()}
-              />
-              <Button className="w-full" type="submit">
-                Continue
-              </Button>
-            </form>
-          </Form>
-        </div>
-      ) : (
-        <div className="p-6 w-[400px]">
-          <div className="flex flex-col gap-[6px] mb-6">
-            <h3 className="text-2xl font-bold">Welcome, {username}</h3>
-            <p className="text-muted-foreground text-[14px] font-medium">
-              Connect email and set a password
-            </p>
-          </div>
-          <Form {...emailPasswordForm}>
-            <form
-              onSubmit={emailPasswordForm.handleSubmit(handleFinalSubmit)}
-              className="space-y-6"
-            >
-              <FormField
-                control={emailPasswordForm.control}
-                name={"email"}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter email here"
-                        {...field}
-                        onChange={(e) => {
-                          field.onChange(e);
-                          error && clearError();
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <InputForm
-                placeholder="Enter password here"
-                type="password"
-                name="password"
-                label="Password"
-                form={emailPasswordForm}
-                onChange={() => error && clearError()}
-              />
-              <Button className="w-full" type="submit" disabled={loading}>
-                {loading ? "Creating account..." : "Submit"}
-              </Button>
-            </form>
-          </Form>
-        </div>
-      )}
+        {step === 1 ? (
+          <>
+            <div className="mb-6">
+              <h3 className="text-2xl font-bold">Create Your Account</h3>
+              <p className="text-muted-foreground text-sm mt-1">
+                Choose a username for your page
+              </p>
+            </div>
+            <Form {...usernameForm}>
+              <form
+                onSubmit={usernameForm.handleSubmit(handleUsernameSubmit)}
+                className="space-y-6"
+              >
+                <InputForm
+                  name="username"
+                  label="Username"
+                  form={usernameForm}
+                  type="text"
+                  placeholder="Enter username here"
+                  onChange={() => error && clearError()}
+                />
+                <Button className="w-full" type="submit">
+                  Continue
+                </Button>
+              </form>
+            </Form>
+          </>
+        ) : (
+          <>
+            <div className="mb-6">
+              <h3 className="text-2xl font-bold">Welcome, {username}</h3>
+              <p className="text-muted-foreground text-sm mt-1">
+                Connect email and set a password
+              </p>
+            </div>
+            <Form {...emailPasswordForm}>
+              <form
+                onSubmit={emailPasswordForm.handleSubmit(handleFinalSubmit)}
+                className="space-y-6"
+              >
+                <FormField
+                  control={emailPasswordForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter email here"
+                          {...field}
+                          onChange={(e) => {
+                            field.onChange(e);
+                            error && clearError();
+                          }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <InputForm
+                  placeholder="Enter password here"
+                  type="password"
+                  name="password"
+                  label="Password"
+                  form={emailPasswordForm}
+                  onChange={() => error && clearError()}
+                />
+
+                <Button className="w-full" type="submit" disabled={loading}>
+                  {loading ? "Creating account..." : "Submit"}
+                </Button>
+              </form>
+            </Form>
+          </>
+        )}
+      </div>
     </div>
   );
 };

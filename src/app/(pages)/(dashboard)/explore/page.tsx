@@ -103,9 +103,13 @@ export default function Explore() {
                           {creator.name}
                         </h2>
                       </div>
-                      <div className="flex items-start">
+                      <div className="flex items-start ">
                         <Link href={`/profile/${creator.username}`}>
-                          <Button variant="outline" size="sm" className="gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="gap-2 cursor-pointer"
+                          >
                             <span>View profile</span>
                             <ExternalLink className="h-4 w-4" />
                           </Button>

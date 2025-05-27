@@ -100,13 +100,13 @@ export default function Home() {
   }
 
   return (
-    <div className="flex max-h-screen">
-      <main className="flex-1">
-        <div className="max-w-4xl mx-auto">
-          <Card className="p-6 mb-5">
-            <div className="flex items-center justify-between mb-2">
+    <div className="flex h-full min-h-screen">
+      <main className="flex-1 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto w-full">
+          <Card className="p-4 sm:p-6 mb-5">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0 mb-4">
               <div className="flex items-center gap-3">
-                <Avatar className="h-12 w-12">
+                <Avatar className="h-12 w-12 shrink-0">
                   {profile?.avatarImage ? (
                     <AvatarImage
                       src={profile.avatarImage}
@@ -121,28 +121,31 @@ export default function Home() {
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h2 className="font-semibold text-lg">
+                  <h2 className="font-semibold text-base sm:text-lg">
                     {profile?.name || <Skeleton className="h-6 w-32" />}
                   </h2>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm text-gray-500 break-words max-w-[200px] sm:max-w-full">
                     {profile?.socialMediaURL || (
                       <Skeleton className="h-4 w-48 mt-1" />
                     )}
                   </div>
                 </div>
               </div>
-              <Button variant="default" className="gap-2">
+              <Button variant="default" className="gap-2 w-full sm:w-auto">
                 <Share className="h-4 w-4" />
                 Share page link
               </Button>
             </div>
             <Separator />
-            <div className="mb-2">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold">Earnings</h3>
+            <div className="mt-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+                <h3 className="text-lg sm:text-xl font-semibold">Earnings</h3>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="gap-2">
+                    <Button
+                      variant="outline"
+                      className="gap-2 w-full sm:w-auto"
+                    >
                       {earningsPeriod}
                       <ChevronDown className="h-4 w-4" />
                     </Button>
@@ -167,7 +170,7 @@ export default function Home() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-              <h2 className="text-4xl font-bold">
+              <h2 className="text-3xl sm:text-4xl font-bold">
                 {stats ? (
                   formatCurrency(stats.totalEarnings)
                 ) : (
@@ -184,49 +187,53 @@ export default function Home() {
             </div>
           </Card>
 
-          <Card className="py-0">
-            <div className="p-6 h-[500px] overflow-auto">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold">Recent transactions</h3>
-                <div className="flex gap-2">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm" className="gap-1">
-                        {amountFilter === "All"
-                          ? "All amounts"
-                          : `$${amountFilter}`}
-                        <ChevronDown className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => setAmountFilter("All")}>
-                        All amounts
-                        {amountFilter === "All" && (
+          <Card className="py-0 overflow-hidden">
+            <div className="p-4 sm:p-6 max-h-[500px] overflow-auto">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+                <h3 className="text-lg sm:text-xl font-semibold">
+                  Recent transactions
+                </h3>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="gap-1 w-full sm:w-auto"
+                    >
+                      {amountFilter === "All"
+                        ? "All amounts"
+                        : `$${amountFilter}`}
+                      <ChevronDown className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => setAmountFilter("All")}>
+                      All amounts
+                      {amountFilter === "All" && (
+                        <span className="ml-auto">✓</span>
+                      )}
+                    </DropdownMenuItem>
+                    {[1, 2, 5, 10].map((value) => (
+                      <DropdownMenuItem
+                        key={value}
+                        onClick={() => setAmountFilter(value.toString())}
+                      >
+                        {formatCurrency(value)}
+                        {amountFilter === value.toString() && (
                           <span className="ml-auto">✓</span>
                         )}
                       </DropdownMenuItem>
-                      {[1, 2, 5, 10].map((value) => (
-                        <DropdownMenuItem
-                          key={value}
-                          onClick={() => setAmountFilter(value.toString())}
-                        >
-                          {formatCurrency(value)}
-                          {amountFilter === value.toString() && (
-                            <span className="ml-auto">✓</span>
-                          )}
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               {filteredDonations.length > 0 ? (
                 <div className="space-y-5">
                   {filteredDonations.map((transaction) => (
                     <div key={transaction.id}>
-                      <div className="flex items-start justify-between">
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                         <div className="flex gap-3">
-                          <Avatar className="h-10 w-10">
+                          <Avatar className="h-10 w-10 shrink-0">
                             <AvatarImage
                               className="object-cover"
                               src={transaction.donorImage}
@@ -267,12 +274,12 @@ export default function Home() {
                   <div className="flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-gray-100">
                     <Heart className="w-8 h-8 text-gray-400" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">
+                  <h3 className="text-lg sm:text-xl font-semibold mb-2">
                     {donations.length === 0
                       ? "You don't have any supporters yet"
                       : "No matching transactions found"}
                   </h3>
-                  <p className="text-gray-500 max-w-md">
+                  <p className="text-gray-500 max-w-md px-2">
                     {donations.length === 0
                       ? "Share your page with your audience to get started."
                       : "Try adjusting your filters"}

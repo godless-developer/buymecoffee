@@ -1,22 +1,24 @@
 import { Coffee } from "lucide-react";
 import Link from "next/link";
 
-export const Logo = () => {
+export const Logo = ({ color }: { color: string }) => {
   return (
     <Link href={"/"}>
-      <div className="text-black flex gap-2">
-        <Coffee color="black" />
-        <p className="font-bold text-lg">Buy Me Coffee</p>
+      <div className={`text-${color} flex gap-2`}>
+        <Coffee />
+        <p className={`font-bold text-lg text-${color}`}>Buy Me Coffee</p>
       </div>
     </Link>
   );
 };
+
 export const CoffeeLogo = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={241}
-      height={240}
+      width={100}
+      height={100}
+      viewBox="0 0 241 240"
       fill="none"
     >
       <mask

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -8,6 +8,7 @@ import { Form } from "@/components/ui/form";
 import { InputForm } from "../components/InputForm";
 import Link from "next/link";
 import { useUser } from "@/app/context/UserContext";
+
 const formSchema = z.object({
   email: z.string().email().min(12, {
     message: "Email must be at least 12 characters.",
@@ -33,24 +34,21 @@ const SignIn = () => {
   }
 
   return (
-    <div className="max-w-[50vw] w-full h-screen flex justify-center relative items-center">
-      <Link href={"/sign-up"}>
-        <Button
-          variant={"outline"}
-          className="absolute top-[32px] right-[80px]"
-        >
-          Sign up
-        </Button>
+    <div className="w-full md:min-h-screen flex justify-center items-center px-4 sm:px-8">
+      <Link href="/sign-up" className="absolute top-6 right-6 sm:right-20">
+        <Button variant="outline">Sign up</Button>
       </Link>
-      <div className="px-6 w-[400px]">
-        <h3 className="text-2xl mb-6 font-bold">Welcome back</h3>
+      <div className="w-full max-w-md sm:max-w-lg px-4 py-6 sm:px-6 shadow-md rounded-md bg-white">
+        <h3 className="text-2xl sm:text-3xl mb-6 font-bold text-center">
+          Welcome back
+        </h3>
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-sm">
             {error}
           </div>
         )}
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <InputForm
               name="email"
               placeholder="Enter email here"

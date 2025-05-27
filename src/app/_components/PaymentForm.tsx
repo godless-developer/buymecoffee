@@ -83,10 +83,11 @@ const PaymentForm = () => {
         )
       );
   }, []);
+
   const router = useRouter();
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-
       const response = await axios.post(`/api/bank-card`, {
         ...values,
         userId: userId,
@@ -116,7 +117,7 @@ const PaymentForm = () => {
   }
 
   return (
-    <div className="max-w-[510px] w-full m-auto flex flex-col gap-6">
+    <div className="max-w-[510px] w-full m-auto flex flex-col gap-6 px-4 sm:px-0">
       <h3 className="font-bold text-2xl">How would you like to be paid?</h3>
       <p className="text-muted-foreground">
         Enter location and payment details
@@ -178,12 +179,12 @@ const PaymentForm = () => {
             )}
           />
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             <FormField
               control={form.control}
               name="firstName"
               render={({ field }) => (
-                <FormItem className="w-full">
+                <FormItem className="w-full sm:w-[240px]">
                   <FormLabel>First name</FormLabel>
                   <FormControl>
                     <Input
@@ -200,7 +201,7 @@ const PaymentForm = () => {
               control={form.control}
               name="lastName"
               render={({ field }) => (
-                <FormItem className="w-full">
+                <FormItem className="w-full sm:w-[240px]">
                   <FormLabel>Last name</FormLabel>
                   <FormControl>
                     <Input
@@ -233,19 +234,19 @@ const PaymentForm = () => {
             )}
           />
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             <FormField
               control={form.control}
               name="expiryMonth"
               render={({ field }) => (
-                <FormItem className="w-full">
+                <FormItem className="w-full sm:w-[180px]">
                   <FormLabel>Month</FormLabel>
                   <FormControl>
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-[180px]">
+                      <SelectTrigger className="w-full">
                         <SelectValue placeholder="Month" />
                       </SelectTrigger>
-                      <SelectContent className="h-[120px]">
+                      <SelectContent className="max-h-[120px]">
                         {months.map((month) => (
                           <SelectItem key={month} value={month}>
                             {month}
@@ -262,14 +263,14 @@ const PaymentForm = () => {
               control={form.control}
               name="expiryYear"
               render={({ field }) => (
-                <FormItem className="w-full">
+                <FormItem className="w-full sm:w-[180px]">
                   <FormLabel>Year</FormLabel>
                   <FormControl>
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-[180px]">
+                      <SelectTrigger className="w-full">
                         <SelectValue placeholder="Year" />
                       </SelectTrigger>
-                      <SelectContent className="h-[120px]">
+                      <SelectContent className="max-h-[120px]">
                         {years.map((year) => (
                           <SelectItem key={year} value={year}>
                             {year}
@@ -286,7 +287,7 @@ const PaymentForm = () => {
               control={form.control}
               name="cvc"
               render={({ field }) => (
-                <FormItem className="w-full">
+                <FormItem className="w-full sm:w-[140px]">
                   <FormLabel>CVC</FormLabel>
                   <FormControl>
                     <Input type="text" placeholder="CVC" {...field} />
@@ -298,7 +299,7 @@ const PaymentForm = () => {
           </div>
 
           <div className="flex justify-end">
-            <Button type="submit" className="max-w-[250px] w-full">
+            <Button type="submit" className="w-full sm:max-w-[250px]">
               Continue
             </Button>
           </div>
