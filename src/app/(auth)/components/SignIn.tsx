@@ -36,7 +36,9 @@ const SignIn = () => {
   return (
     <div className="w-full md:min-h-screen flex justify-center items-center px-4 sm:px-8">
       <Link href="/sign-up" className="absolute top-6 right-6 sm:right-20">
-        <Button variant="outline">Sign up</Button>
+        <Button variant="outline" className="cursor-pointer">
+          Sign up
+        </Button>
       </Link>
       <div className="w-full max-w-md sm:max-w-lg px-4 py-6 sm:px-6 shadow-md rounded-md bg-white">
         <h3 className="text-2xl sm:text-3xl mb-6 font-bold text-center">
@@ -65,7 +67,11 @@ const SignIn = () => {
               type="password"
               onChange={() => error && clearError()}
             />
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button
+              type="submit"
+              className="w-full cursor-pointer"
+              disabled={loading}
+            >
               {loading ? "Signing in..." : "Submit"}
             </Button>
           </form>

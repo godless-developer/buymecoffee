@@ -70,7 +70,7 @@ const SignUp = () => {
         <Link href="/sign-in">
           <Button
             variant="outline"
-            className="absolute -top-100 right-0 md:-top-80 md:right-0 text-sm"
+            className="absolute -top-100 right-0 md:-top-80 md:right-0 text-sm cursor-pointer"
           >
             Log in
           </Button>
@@ -103,7 +103,7 @@ const SignUp = () => {
                   placeholder="Enter username here"
                   onChange={() => error && clearError()}
                 />
-                <Button className="w-full" type="submit">
+                <Button className="w-full cursor-pointer" type="submit">
                   Continue
                 </Button>
               </form>
@@ -152,7 +152,11 @@ const SignUp = () => {
                   onChange={() => error && clearError()}
                 />
 
-                <Button className="w-full" type="submit" disabled={loading}>
+                <Button
+                  className="w-full cursor-pointer"
+                  type="submit"
+                  disabled={loading}
+                >
                   {loading ? "Creating account..." : "Submit"}
                 </Button>
               </form>

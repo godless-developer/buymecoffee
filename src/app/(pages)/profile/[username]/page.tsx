@@ -224,8 +224,11 @@ export default function ViewPage() {
                             />
                             <div>
                               <p className="font-medium">
-                                {donation.donorName} bought you $
-                                {donation.amount.toFixed(2)} coffee
+                                {donation.donorName} bought{" "}
+                                {profile.name === username
+                                  ? "you"
+                                  : profile.name}{" "}
+                                ${donation.amount.toFixed(2)} coffee
                               </p>
                               {donation.specialMessage && (
                                 <p className="text-gray-600 italic">
